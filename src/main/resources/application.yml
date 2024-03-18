@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    generate-ddl: true
+  main:
+    allow-bean-definition-overriding: true
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      name: commentJob
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    url: ${DB_URL}
+    user: ${DB_USER}
+    password: ${DB_PASS}
+    out-of-order: true
+  data:
+    redis:
+      host: localhost
+      port: 6379

@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url:  jdbc:mysql://mysql:3306/comment?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    generate-ddl: true
+  main:
+    allow-bean-definition-overriding: true
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      name: commentJob
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    url:  jdbc:mysql://mysql:3306/comment?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    user: root
+    password: root
+    out-of-order: true
+  data:
+    redis:
+      host: redis
+      port: 6379
