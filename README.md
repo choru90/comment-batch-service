@@ -14,6 +14,9 @@ $ docker-compose up --build -d
 3. batch server가 docker 실행된 후 결과물로 파일이 생성됩니다.
 - 생성 경로 src/main/resources
 - result.txt, result.log 파일이 생성되어 있음을 확인하실 수 있습니다.
+4. Docker Compose로 실행하는 경우 Mysql에 학교 데이터가 저장되어 있습니다.
+Mysql DB는 db폴더 내에 volumes설정으로 저장 되어지고 있습니다. docker로 실행하지 않을 시에는 
+Flyway로 Seed Data가 insert 되어집니다.
 
 ## 스택
 
@@ -22,6 +25,7 @@ $ docker-compose up --build -d
 - Redis
 - Mysql
 - JPA
+- Flyway
 
 ## 데이터 출처
 
