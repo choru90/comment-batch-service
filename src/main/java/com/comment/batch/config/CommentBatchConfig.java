@@ -2,10 +2,8 @@ package com.comment.batch.config;
 
 import com.comment.batch.entity.School;
 import com.comment.batch.listener.CustomJobListener;
-import com.comment.batch.listener.CustomWriteListener;
 import com.comment.batch.repository.SchoolRepository;
 import com.comment.batch.vo.Comment;
-import com.comment.batch.vo.SchoolCount;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -13,28 +11,24 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.step.skip.AlwaysSkipItemSkipPolicy;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.FlatFileParseException;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
-import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Slf4j
 @Configuration
@@ -52,6 +46,7 @@ public class CommentBatchConfig {
         return new JobBuilder("commentJob", jobRepository)
                 .start(commentStep)
                 .listener(new CustomJobListener(redisTemplate))
+                .incrementer(new RunIdIncrementer())
                 .build();
     }
 
